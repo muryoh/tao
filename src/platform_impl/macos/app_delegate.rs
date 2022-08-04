@@ -10,7 +10,7 @@ use std::{
 use cocoa::base::id;
 use objc::{
   declare::ClassDecl,
-  runtime::{BOOL, Class, NO, Object, Sel, YES},
+  runtime::{Class, Object, Sel, BOOL, NO, YES},
 };
 
 use crate::{platform::macos::ActivationPolicy, platform_impl::platform::app_state::AppState};
@@ -102,10 +102,18 @@ extern "C" fn application_will_terminate(_: &Object, _: Sel, _: id) {
   trace!("Completed `applicationWillTerminate`");
 }
 
-extern "C" fn application_should_handle_reopen(_: &Object, _: Sel, _: id, has_visible_windows: BOOL) -> BOOL {
+extern "C" fn application_should_handle_reopen(
+  _: &Object,
+  _: Sel,
+  _: id,
+  has_visible_windows: BOOL,
+) -> BOOL {
   trace!("Triggered `applicationShouldHandleReopen`");
-  let should_handle =
-    AppState::should_handle_reopen(has_visible_windows == YES);
+  let should_handle = AppState::should_handle_reopen(has_visible_windows == YES);
   trace!("Completed `applicationShouldHandleReopen`");
-  if should_handle { YES } else { NO }
+  if should_handle {
+    YES
+  } else {
+    NO
+  }
 }

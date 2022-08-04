@@ -219,7 +219,7 @@ impl<T: Clone> Clone for Event<'static, T> {
       GlobalShortcutEvent(accelerator_id) => GlobalShortcutEvent(*accelerator_id),
       ApplicationShouldHandleReopen { .. } => {
         unreachable!("ApplicationShouldHandleReopen cannot clone")
-      },
+      }
     }
   }
 }
@@ -261,7 +261,7 @@ impl<'a, T> Event<'a, T> {
       GlobalShortcutEvent(accelerator_id) => Ok(GlobalShortcutEvent(accelerator_id)),
       ApplicationShouldHandleReopen {
         has_visible_windows,
-        should_handle
+        should_handle,
       } => Ok(ApplicationShouldHandleReopen {
         has_visible_windows,
         should_handle,
