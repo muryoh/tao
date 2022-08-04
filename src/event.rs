@@ -109,7 +109,7 @@ pub enum Event<'a, T: 'static> {
   /// - **iOS / Android / Linux / Windows:** Unsupported.
   ApplicationShouldHandleReopen {
     has_visible_windows: bool,
-    handled: &'a mut bool,
+    should_handle: &'a mut bool,
   },
 
   /// Emitted when a global shortcut is triggered.
@@ -261,10 +261,10 @@ impl<'a, T> Event<'a, T> {
       GlobalShortcutEvent(accelerator_id) => Ok(GlobalShortcutEvent(accelerator_id)),
       ApplicationShouldHandleReopen {
         has_visible_windows,
-        handled: should_handle,
+        should_handle,
       } => Ok(ApplicationShouldHandleReopen {
         has_visible_windows,
-        handled: should_handle,
+        should_handle,
       }),
     }
   }
